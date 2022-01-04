@@ -19,7 +19,14 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <!--we will use this to bind the data in ViewModel to the layout.-->
+        <variable
+            name="gameViewModel"
+            type="com.example.android.unscramble.ui.game.GameViewModel" />
+        <!--we will use this to bind to the variable in ViewModel to store the number of words per game.-->
+        <variable
+            name="maxNoOfWords"
+            type="int" />
     </data>
 
     <ScrollView
