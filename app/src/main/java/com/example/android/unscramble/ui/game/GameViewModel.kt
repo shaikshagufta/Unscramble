@@ -1,14 +1,24 @@
 package com.example.android.unscramble.ui.game
 
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.TtsSpan
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 
 /**
  * ViewModel containing the app data and methods to process the data
  */
-
+/*
+* A better user experience would be to have Talkback read aloud the individual characters of the scrambled word.
+*  Within the GameViewModel, convert the scrambled word String to a Spannable string.
+*  A spannable string is a string with some extra information attached to it.
+* In this case, we want to associate the string with a TtsSpan of TYPE_VERBATIM,
+*  so that the text-to-speech engine reads aloud the scrambled word verbatim, character by character.
+* */
 class GameViewModel : ViewModel(){
     private val _score = MutableLiveData(0)
     val score: LiveData<Int>
@@ -19,8 +29,21 @@ class GameViewModel : ViewModel(){
         get() = _currentWordCount
 
     private val _currentScrambledWord = MutableLiveData<String>()
-    val currentScrambledWord: LiveData<String>
-        get() = _currentScrambledWord
+    val currentScrambledWord: LiveData<Spannable> = Transformations.map(_currentScrambledWord) {
+        if (it == null) {
+            SpannableString("")
+        } else {
+            val scrambledWord = it.toString()
+            val spannable: Spannable = SpannableString(scrambledWord)
+            spannable.setSpan(
+                TtsSpan.VerbatimBuilder(scrambledWord).build(),
+                0,
+                scrambledWord.length,
+                Spannable.SPAN_INCLUSIVE_INCLUSIVE
+            )
+            spannable
+        }
+    }
 
     // List of words used in the game
     private var wordsList: MutableList<String> = mutableListOf()

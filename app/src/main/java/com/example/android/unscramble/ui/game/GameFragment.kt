@@ -33,9 +33,8 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
  */
 
 /*
-*In this step you will add binding expressions to the score and word count text views,
-* passing in the resource parameters.
-* This step is similar to what you did for textView_unscrambled_word
+*TalkBack gives you spoken feedback so that
+* we can use our device without looking at the screen.
 * */
 
 class GameFragment : Fragment() {
@@ -71,33 +70,6 @@ class GameFragment : Fragment() {
         binding.submit.setOnClickListener { onSubmitWord() }
         binding.skip.setOnClickListener { onSkipWord() }
 
-
-        /*
-        we don't need the observer code in fragment any more.
-        The layout receives the updates of the changes to the LiveData directly.
-
-        // Observe the currentScrambledWord LiveData.
-        viewModel.currentScrambledWord.observe(viewLifecycleOwner,
-            { newWord ->
-                binding.textViewUnscrambledWord.text = newWord
-            })*/
-
-/*
- we don't need them any longer, binding expressions update the UI when the corresponding LiveData changes.
-
-        //observe the score LiveData
-        viewModel.score.observe(viewLifecycleOwner,
-            { newScore ->
-                binding.score.text = getString(R.string.score, newScore)
-            })
-
-
-        //Observe the currentWordCount LiveData
-        viewModel.currentWordCount.observe(viewLifecycleOwner,
-            { newWordCount ->
-                binding.wordCount.text =
-                    getString(R.string.word_count, newWordCount, MAX_NO_OF_WORDS)
-            })*/
 
         // Specify the fragment view as the lifecycle owner of the binding.
         // This is used so that the binding can observe LiveData updates
@@ -194,11 +166,4 @@ class GameFragment : Fragment() {
         }
     }
 
-    /*
-     * Displays the next scrambled word on screen.
-     * You do not require this method, as you will be attaching an observer to the LiveData
-     */
-    /*private fun updateNextWordOnScreen() {
-        binding.textViewUnscrambledWord.text = viewModel.currentScrambledWord
-    }*/
 }
