@@ -8,15 +8,11 @@ import androidx.lifecycle.ViewModel
 /**
  * ViewModel containing the app data and methods to process the data
  */
-
 /*
-1.Change the type of the variable _currentScrambledWord to MutableLiveData<String>.
-  LiveData and MutableLiveData are generic classes,
-  so you need to specify the type of data that they hold.
-.Change the variable type of _currentScrambledWord to val because
-  the value of the LiveData/MutableLiveData object will remain the same,
-  and only the data stored within the object will change.
-*/
+* As in the previous task, in this task we will add LiveData to the other data in the app, 'score' and 'word count',
+*  so that the UI is updated with correct values of the score and word count during the game..
+* */
+
 class GameViewModel : ViewModel(){
     private var _score = 0
     val score: Int
@@ -25,12 +21,8 @@ class GameViewModel : ViewModel(){
     private var _currentWordCount = 0
     val currentWordCount: Int
         get() = _currentWordCount
-//Changing the variable type of _currentScrambledWord to val
-//because the value of the LiveData/MutableLiveData object will remain the same,
-//and only the data stored within the object will change.
+
     private val _currentScrambledWord = MutableLiveData<String>()
-    //Changing the backing field, currentScrambledWord type to LiveData<String>,
-    // because it is immutable.
     val currentScrambledWord: LiveData<String>
         get() = _currentScrambledWord
 
