@@ -33,8 +33,9 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
  */
 
 /*
-*
-*
+*In this step you will add binding expressions to the score and word count text views,
+* passing in the resource parameters.
+* This step is similar to what you did for textView_unscrambled_word
 * */
 
 class GameFragment : Fragment() {
@@ -81,6 +82,8 @@ class GameFragment : Fragment() {
                 binding.textViewUnscrambledWord.text = newWord
             })*/
 
+/*
+ we don't need them any longer, binding expressions update the UI when the corresponding LiveData changes.
 
         //observe the score LiveData
         viewModel.score.observe(viewLifecycleOwner,
@@ -94,7 +97,7 @@ class GameFragment : Fragment() {
             { newWordCount ->
                 binding.wordCount.text =
                     getString(R.string.word_count, newWordCount, MAX_NO_OF_WORDS)
-            })
+            })*/
 
         // Specify the fragment view as the lifecycle owner of the binding.
         // This is used so that the binding can observe LiveData updates
