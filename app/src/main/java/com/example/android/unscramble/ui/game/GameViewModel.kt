@@ -8,20 +8,6 @@ import androidx.lifecycle.ViewModel
 /**
  * ViewModel containing the app data and methods to process the data
  */
-/*
-*In the previous tasks, our app listens to the data changes in the code.
-* Similarly, apps can listen to the data changes from the layout.
-* With Data Binding, when an observable LiveData value changes,
-* the UI elements in the layout it's bound to are also notified,
-* and the UI can be updated from within the layout.
-* (You can bind views to code but not vice versa.)
-* (Using view binding you can't reference the app data in the views (layout files). This can be accomplished using Data binding.)
-* Data binding is binding data (from code) to views + view binding (binding views to code)
-*
-* advantage of using data binding is,
-* it lets you remove many UI framework calls in your activities,making them simpler and easier to maintain.
-* This can also improve your app's performance and help prevent memory leaks and null pointer exceptions.
-* */
 
 class GameViewModel : ViewModel(){
     private val _score = MutableLiveData(0)

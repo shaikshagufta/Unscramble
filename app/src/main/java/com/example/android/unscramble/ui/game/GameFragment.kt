@@ -31,9 +31,14 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 /**
  * Fragment where the game is played, contains the game logic.
  */
+
 /*
-* Step 2: Convert layout file to data binding layout
+* In this task we will add properties in the layout file
+* to access the app data from the viewModel.
+* we will initialize the layout variables in the code.
+*
 * */
+
 class GameFragment : Fragment() {
 
     private val viewModel: GameViewModel by viewModels()
@@ -63,10 +68,6 @@ class GameFragment : Fragment() {
         // Setup a click listener for the Submit and Skip buttons.
         binding.submit.setOnClickListener { onSubmitWord() }
         binding.skip.setOnClickListener { onSkipWord() }
-        //deleting the code that updates the score and word count text views.
-        /*binding.score.text = getString(R.string.score, 0)
-        binding.wordCount.text = getString(
-            R.string.word_count, 0, MAX_NO_OF_WORDS)*/
 
 
         // Observe the currentScrambledWord LiveData.
