@@ -1,11 +1,22 @@
 package com.example.android.unscramble.ui.game
 
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 /**
  * ViewModel containing the app data and methods to process the data
  */
+
+/*
+1.Change the type of the variable _currentScrambledWord to MutableLiveData<String>.
+  LiveData and MutableLiveData are generic classes,
+  so you need to specify the type of data that they hold.
+.Change the variable type of _currentScrambledWord to val because
+  the value of the LiveData/MutableLiveData object will remain the same,
+  and only the data stored within the object will change.
+*/
 class GameViewModel : ViewModel(){
     private var _score = 0
     val score: Int
@@ -14,9 +25,13 @@ class GameViewModel : ViewModel(){
     private var _currentWordCount = 0
     val currentWordCount: Int
         get() = _currentWordCount
-
-    private lateinit var _currentScrambledWord: String
-    val currentScrambledWord: String
+//Changing the variable type of _currentScrambledWord to val
+//because the value of the LiveData/MutableLiveData object will remain the same,
+//and only the data stored within the object will change.
+    private val _currentScrambledWord = MutableLiveData<String>()
+    //Changing the backing field, currentScrambledWord type to LiveData<String>,
+    // because it is immutable.
+    val currentScrambledWord: LiveData<String>
         get() = _currentScrambledWord
 
     // List of words used in the game
@@ -46,8 +61,10 @@ class GameViewModel : ViewModel(){
         }
         if (wordsList.contains(currentWord)) {
             getNextWord()
-        } else {
-            _currentScrambledWord = String(tempWord)
+        }
+        //To access the data within a LiveData object, use the value property.
+        else {
+            _currentScrambledWord.value = String(tempWord)
             ++_currentWordCount
             wordsList.add(currentWord)
         }
