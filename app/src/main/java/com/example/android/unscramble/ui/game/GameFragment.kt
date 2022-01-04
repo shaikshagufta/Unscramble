@@ -59,15 +59,43 @@ class GameFragment : Fragment() {
         // Setup a click listener for the Submit and Skip buttons.
         binding.submit.setOnClickListener { onSubmitWord() }
         binding.skip.setOnClickListener { onSkipWord() }
-        binding.score.text = getString(R.string.score, 0)
+        //deleting the code that updates the score and word count text views.
+        /*binding.score.text = getString(R.string.score, 0)
         binding.wordCount.text = getString(
-            R.string.word_count, 0, MAX_NO_OF_WORDS)
+            R.string.word_count, 0, MAX_NO_OF_WORDS)*/
 
 
         // Observe the currentScrambledWord LiveData.
         viewModel.currentScrambledWord.observe(viewLifecycleOwner,
             { newWord ->
                 binding.textViewUnscrambledWord.text = newWord
+            })
+
+        /*
+        * attaching observer for score.
+        * Passing it in the viewLifecycleOwner as the first parameter to
+        * the observer and a lambda expression for the second parameter.
+        * Inside the lambda expression, passing the new score as a parameter and
+        * inside the function body, setting the new score to the text view.
+        * */
+        //observe the score LiveData
+        viewModel.score.observe(viewLifecycleOwner,
+            { newScore ->
+                binding.score.text = getString(R.string.score, newScore)
+            })
+
+        /*
+        * attach an observer for the currentWordCount LiveData.
+        * Passing in the viewLifecycleOwner as the first parameter to the observer and
+        *  a lambda expression for the second parameter.
+        *  Inside the lambda expression, passing the new word count as a parameter and
+        * in the function body, setting the new word count along with the MAX_NO_OF_WORDS to the text view.
+        * */
+        //Observe the currentWordCount LiveData
+        viewModel.currentWordCount.observe(viewLifecycleOwner,
+            { newWordCount ->
+                binding.wordCount.text =
+                    getString(R.string.word_count, newWordCount, MAX_NO_OF_WORDS)
             })
     }
 
