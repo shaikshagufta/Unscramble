@@ -21,6 +21,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.android.unscramble.R
@@ -30,6 +31,9 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 /**
  * Fragment where the game is played, contains the game logic.
  */
+/*
+* Step 2: Convert layout file to data binding layout
+* */
 class GameFragment : Fragment() {
 
     private val viewModel: GameViewModel by viewModels()
@@ -46,7 +50,7 @@ class GameFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout XML file and return a binding object instance
-        binding = GameFragmentBinding.inflate(inflater, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.game_fragment, container, false)
         Log.d("GameFragment", "GameFragment created/re-created!")
         Log.d("GameFragment", "Word: ${viewModel.currentScrambledWord} " +
                 "Score: ${viewModel.score} WordCount: ${viewModel.currentWordCount}")
@@ -71,26 +75,14 @@ class GameFragment : Fragment() {
                 binding.textViewUnscrambledWord.text = newWord
             })
 
-        /*
-        * attaching observer for score.
-        * Passing it in the viewLifecycleOwner as the first parameter to
-        * the observer and a lambda expression for the second parameter.
-        * Inside the lambda expression, passing the new score as a parameter and
-        * inside the function body, setting the new score to the text view.
-        * */
+
         //observe the score LiveData
         viewModel.score.observe(viewLifecycleOwner,
             { newScore ->
                 binding.score.text = getString(R.string.score, newScore)
             })
 
-        /*
-        * attach an observer for the currentWordCount LiveData.
-        * Passing in the viewLifecycleOwner as the first parameter to the observer and
-        *  a lambda expression for the second parameter.
-        *  Inside the lambda expression, passing the new word count as a parameter and
-        * in the function body, setting the new word count along with the MAX_NO_OF_WORDS to the text view.
-        * */
+
         //Observe the currentWordCount LiveData
         viewModel.currentWordCount.observe(viewLifecycleOwner,
             { newWordCount ->
