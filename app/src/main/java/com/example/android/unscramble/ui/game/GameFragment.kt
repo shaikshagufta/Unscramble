@@ -60,10 +60,19 @@ class GameFragment : Fragment() {
         binding.submit.setOnClickListener { onSubmitWord() }
         binding.skip.setOnClickListener { onSkipWord() }
         // Update the UI
-        updateNextWordOnScreen()
+        /*updateNextWordOnScreen()*//*You do not require this method, as you will be attaching an observer to the LiveData*/
         binding.score.text = getString(R.string.score, 0)
         binding.wordCount.text = getString(
             R.string.word_count, 0, MAX_NO_OF_WORDS)
+
+
+        // Observe the currentScrambledWord LiveData.
+        /* Fragment's View lifecycle. This parameter helps the LiveData to be aware of the GameFragment lifecycle and notify the observer only when the GameFragment is in active states (STARTED or RESUMED).*/
+        viewModel.currentScrambledWord.observe(viewLifecycleOwner,
+            { newWord ->/* lambda as a second parameter with newWord as a function parameter.
+            The newWord will contain the new scrambled word value.*/
+                binding.textViewUnscrambledWord.text = newWord
+            })
     }
 
     /*
@@ -76,9 +85,9 @@ class GameFragment : Fragment() {
 
         if (viewModel.isUserWordCorrect(playerWord)) {
             setErrorTextField(false)
-            if (viewModel.nextWord()) {
-                updateNextWordOnScreen()
-            } else {
+            if (!viewModel.nextWord()) {
+                /*updateNextWordOnScreen()
+            } else {*/
                 showFinalScoreDialog()
             }
         } else {
@@ -92,7 +101,7 @@ class GameFragment : Fragment() {
     private fun onSkipWord() {
         if (viewModel.nextWord()) {
             setErrorTextField(false)
-            updateNextWordOnScreen()
+            /*updateNextWordOnScreen()*/
         } else {
             showFinalScoreDialog()
         }
@@ -131,7 +140,7 @@ class GameFragment : Fragment() {
     private fun restartGame() {
         viewModel.reinitializeData()
         setErrorTextField(false)
-        updateNextWordOnScreen()
+        /*updateNextWordOnScreen()*/
     }
 
     /*
@@ -161,8 +170,9 @@ class GameFragment : Fragment() {
 
     /*
      * Displays the next scrambled word on screen.
+     * You do not require this method, as you will be attaching an observer to the LiveData
      */
-    private fun updateNextWordOnScreen() {
+    /*private fun updateNextWordOnScreen() {
         binding.textViewUnscrambledWord.text = viewModel.currentScrambledWord
-    }
+    }*/
 }
