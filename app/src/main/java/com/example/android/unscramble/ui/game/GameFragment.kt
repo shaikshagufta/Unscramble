@@ -33,9 +33,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
  */
 
 /*
-* In this task we will add properties in the layout file
-* to access the app data from the viewModel.
-* we will initialize the layout variables in the code.
+*
 *
 * */
 
@@ -73,11 +71,15 @@ class GameFragment : Fragment() {
         binding.skip.setOnClickListener { onSkipWord() }
 
 
+        /*
+        we don't need the observer code in fragment any more.
+        The layout receives the updates of the changes to the LiveData directly.
+
         // Observe the currentScrambledWord LiveData.
         viewModel.currentScrambledWord.observe(viewLifecycleOwner,
             { newWord ->
                 binding.textViewUnscrambledWord.text = newWord
-            })
+            })*/
 
 
         //observe the score LiveData
@@ -97,9 +99,6 @@ class GameFragment : Fragment() {
         // Specify the fragment view as the lifecycle owner of the binding.
         // This is used so that the binding can observe LiveData updates
         binding.lifecycleOwner = viewLifecycleOwner
-
-/* we implemented a similar functionality when implementing LiveData observers.
-we passed viewLifecycleOwner as one of the parameters to the LiveData observers.*/
     }
 
     /*
